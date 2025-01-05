@@ -57,7 +57,8 @@ def login_view(request):
         if form.is_valid():
             user = form.get_user()
             login(request, user)
-            return redirect('todo_list')
+            next_url = request.GET.get('next', 'todo_list')
+            return redirect(next_url)
     else:
         form = AuthenticationForm()
     return render(request, 'todo/login.html', {'form': form})
